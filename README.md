@@ -15,3 +15,4 @@ Here's the execution time of my own runs:
 | Ryzen 7 5700U | -j16 | 3 minutes 28 seconds |
 | Intel Core i3 6100T | -j4 | 6 minutes 18 seconds |
 | Intel Core i5 6300U | -j4 | 7 minutes 45 seconds |
+| Intel Core i5 10310U | -j8 | 4 minutes 30 seconds |
