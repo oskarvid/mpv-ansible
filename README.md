@@ -8,7 +8,7 @@
 
 ## Comments
 Apart from compiling `mpv` and installing `yt-dlp` the playbook is configured to benchmark each task.  
-Here's the execution time of my own runs:  
+Here's the execution time of my own `./rebuild.sh -jx` runs:  
 
 | CPU | -j | Time |
 |---|---|---|
