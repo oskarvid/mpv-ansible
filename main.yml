@@ -1,0 +1,118 @@
+- name: Compile mpv
+  hosts: 
+    all
+  user: '{{ username }}'
+  vars:
+    username: oskar
+  become: yes
+  tasks:
+    - name: Install dependencies
+      apt:
+        update_cache: yes
+        state: latest
+        name:
+          git,
+          autoconf,
+          automake,
+          gcc,
+          debhelper,
+          ladspa-sdk,
+          libasound2-dev,
+          libarchive-dev,
+          libbluray-dev,
+          libbs2b-dev,
+          libcaca-dev,
+          libcdio-paranoia-dev,
+          libdrm-dev,
+          libdvdnav-dev,
+          libegl1-mesa-dev,
+          libfontconfig-dev,
+          libfreetype6-dev,
+          libfribidi-dev,
+          libgl1-mesa-dev,
+          libgbm-dev,
+          libgme-dev,
+          libgnutls28-dev,
+          libgsm1-dev,
+          libharfbuzz-dev,
+          libjack-dev,
+          libjpeg-dev,
+          libbrotli-dev,
+          liblcms2-dev,
+          liblircclient-dev,
+          liblua5.2-dev,
+          liblua5.1-0-dev,
+          libmodplug-dev,
+          libmp3lame-dev,
+          libopenal-dev,
+          libopus-dev,
+          libopencore-amrnb-dev,
+          libopencore-amrwb-dev,
+          libpulse-dev,
+          librtmp-dev,
+          librubberband-dev,
+          libssh-dev,
+          libsoxr-dev,
+          libspeex-dev,
+          libtool,
+          libuchardet-dev,
+          libv4l-dev,
+          libva-dev,
+          libvdpau-dev,
+          libvorbis-dev,
+          libvo-amrwbenc-dev,
+          libvpx-dev,
+          libwayland-dev,
+          libx264-dev,
+          libx11-dev,
+          libxext-dev,
+          libxinerama-dev,
+          libxkbcommon-dev,
+          libxrandr-dev,
+          libxss-dev,
+          libxv-dev,
+          libxvidcore-dev,
+          pkg-config,
+          python3,
+          python3-docutils,
+          x11proto-core-dev,
+          yasm,
+          zlib1g-dev
+
+    - name: Git checkout
+      ansible.builtin.git:
+        repo: 'https://github.com/mpv-player/mpv-build/'
+        dest: /tmp/mpv-build
+        version: master
+
+    - name: Execute the rebuild script
+      ansible.builtin.shell: cd /tmp/mpv-build; time ./rebuild -j4
+
+    - name: Execute the install script
+      become_user: root
+      ansible.builtin.shell: cd /tmp/mpv-build; ./install
+
+    - name: Print mpv version etc
+      ansible.builtin.shell: mpv
+      register: mpvversion
+
+    # show the content of mpvversion var
+    - debug: msg="{{ mpvversion.stdout_lines }}"
+      when: mpvversion.stdout_lines is defined
+
+    - name: Delete the mpv-build directory
+      ansible.builtin.file:
+        path: /tmp/mpv-build
+        state: absent
+
+    - name: Copy file with owner and permissions
+      ansible.builtin.copy:
+        dest: /home/{{ username }}/.config/mpv/mpv.conf
+        src: mpv.conf
+        owner: '{{ username }}'
+        group: '{{ username }}'
+        mode: '0774'
+
+    - name: Install yt-dlp
+      pip:
+        name: yt-dlp
