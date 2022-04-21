@@ -82,15 +82,16 @@
     - name: Git checkout
       ansible.builtin.git:
         repo: 'https://github.com/mpv-player/mpv-build/'
-        dest: /tmp/mpv-build
+        dest: /home/{{ username }}/mpv-build
         version: master
 
     - name: Execute the rebuild script
-      ansible.builtin.shell: cd /tmp/mpv-build; time ./rebuild -j8
+      become_user: root
+      ansible.builtin.shell: cd /home/{{ username }}/mpv-build; ./rebuild -j$(nproc)
 
     - name: Execute the install script
       become_user: root
-      ansible.builtin.shell: cd /tmp/mpv-build; ./install
+      ansible.builtin.shell: cd /home/{{ username }}/mpv-build; ./install
 
     - name: Print mpv version etc
       ansible.builtin.shell: mpv
@@ -100,10 +101,10 @@
     - debug: msg="{{ mpvversion.stdout_lines }}"
       when: mpvversion.stdout_lines is defined
 
-    - name: Delete the mpv-build directory
+    - name: Ensure the config directory exists directory
       ansible.builtin.file:
-        path: /tmp/mpv-build
-        state: absent
+        path: /home/{{ username }}/.config/mpv/
+        state: present
 
     - name: Copy file with owner and permissions
       ansible.builtin.copy:
