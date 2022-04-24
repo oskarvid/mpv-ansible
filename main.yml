@@ -104,7 +104,7 @@
     - name: Ensure the config directory exists directory
       ansible.builtin.file:
         path: /home/{{ username }}/.config/mpv/
-        state: present
+        state: directory
 
     - name: Copy file with owner and permissions
       ansible.builtin.copy:
