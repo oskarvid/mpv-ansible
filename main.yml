@@ -1,9 +1,9 @@
 - name: Compile mpv
   hosts: 
-    all
-  user: '{{ username }}'
+    localhost
   vars:
     username: oskar
+  remote_user: '{{ username }}'
   become: yes
   tasks:
     - name: Install dependencies
@@ -80,6 +80,7 @@
           zlib1g-dev
 
     - name: Git checkout
+      become: false
       ansible.builtin.git:
         repo: 'https://github.com/mpv-player/mpv-build/'
         dest: /home/{{ username }}/mpv-build
