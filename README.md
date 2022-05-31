@@ -7,7 +7,9 @@
 
 ## Comments
 Apart from compiling `mpv` and installing `yt-dlp` the playbook is configured to benchmark 
-each task.  Here's the execution time of my own `./rebuild.sh -j$(nproc)` runs:
+each task. NB: You should run the benchmark twice because it will first pull any recent changes and this will include the `git pull` time in the benchmark time and that's not of interest, so if you are benchmarking it you should run it twice and use the second result as true benchmark result.
+
+Here's the execution time of my own `./rebuild.sh -j$(nproc)` runs:
 
 | CPU | -j | Time |
 |---|---|---|
