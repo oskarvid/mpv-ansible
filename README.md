@@ -4,7 +4,7 @@
 * Change the username variable in `main.yml`
 * Edit the `hosts` file
 * Edit the `mpv.conf` file to your liking
-
+* For local execution run `ansible-playbook -K -i hosts main.yml`
 ## Comments
 Apart from compiling `mpv` and installing `yt-dlp` the playbook is configured to benchmark 
 each task. NB: You should run the benchmark twice because it will first pull any recent changes and this will include the `git pull` time in the benchmark time and that's not of interest, so if you are benchmarking it you should run it twice and use the second result as true benchmark result.
@@ -16,6 +16,7 @@ Here's the execution time of my own `./rebuild.sh -j$(nproc)` runs:
 | AMD Ryzen 5 5650U | -j12 | 1 minute 50 seconds |
 | Intel Core i5 10500T | -j12 | 1 minutes 52 seconds |
 | Intel Core i5 8400 | -j6 | 2 minutes 6 seconds |
+| Intel Core i5 8250U | -j8 | 3 minutes 33 seconds |
 | AMD Ryzen 7 5700U | -j16 | 3 minutes 28 seconds |
 | AMD FX 8350 | -j8 | 3 minutes 28 seconds |
 | Intel Core i5 10310U | -j8 | 4 minutes 30 seconds |
