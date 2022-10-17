@@ -16,9 +16,9 @@ Here's the execution time of my own `./rebuild.sh -j$(nproc)` runs:
 | AMD Ryzen 5 5650U | -j12 | 1 minute 50 seconds |
 | Intel Core i5 10500T | -j12 | 1 minutes 52 seconds |
 | Intel Core i5 8400 | -j6 | 2 minutes 6 seconds |
-| Intel Core i5 8250U | -j8 | 3 minutes 33 seconds |
 | AMD Ryzen 7 5700U | -j16 | 3 minutes 28 seconds |
 | AMD FX 8350 | -j8 | 3 minutes 28 seconds |
+| Intel Core i5 8250U | -j8 | 3 minutes 33 seconds |
 | Intel Core i5 10310U | -j8 | 4 minutes 30 seconds |
 | Intel Core i5 2400 | -j4 | 5 minutes 24 seconds |
 | Intel Core i3 6100T | -j4 | 6 minutes 18 seconds |
