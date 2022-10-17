@@ -1,6 +1,7 @@
 - name: Compile mpv
   hosts: 
     localhost
+  connection: local
   vars:
     username: oskar
   remote_user: '{{ username }}'
@@ -78,6 +79,11 @@
           x11proto-core-dev,
           yasm,
           zlib1g-dev
+
+    - name: Install meson
+      become: false
+      ansible.builtin.pip:
+        name: meson
 
     - name: Git checkout
       become: false
